@@ -49,12 +49,12 @@ bool server_http_context::init(const common_params & params) {
 #ifdef CPPHTTPLIB_OPENSSL_SUPPORT
     if (params.ssl_file_key != "" && params.ssl_file_cert != "") {
         LOG_INF("Running with SSL: key = %s, cert = %s\n", params.ssl_file_key.c_str(), params.ssl_file_cert.c_str());
-        svr.reset(
+        pimpl->srv.reset(
             new httplib::SSLServer(params.ssl_file_cert.c_str(), params.ssl_file_key.c_str())
         );
     } else {
         LOG_INF("Running without SSL\n");
-        svr.reset(new httplib::Server());
+        pimpl->srv.reset(new httplib::Server());
     }
 #else
     if (params.ssl_file_key != "" && params.ssl_file_cert != "") {
